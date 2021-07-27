@@ -1,3 +1,4 @@
+
 os: linux
 dist: bionic
 language: python
@@ -11,11 +12,42 @@ jobs:
       env:
         TOXENV: docs,black,flake8,isort,mypy,pylint
         TOX_PARALLEL: "-p"
-   
+    - python: 3.6
+      env:
+        TOXENV: py36
+    - python: 3.7
+      env:
+        TOXENV: py37
     - python: 3.8
       env:
         TOXENV: py38
-    
+    - python: 3.9
+      env:
+        TOXENV: py39
+    - python: pypy3
+      env:
+        TOXENV: pypy3
+    - os: osx
+      # Not required but makes Travis' output prettier
+      language: generic
+      env:
+        MB_PYTHON_VERSION: 3.6
+        TOXENV: py36
+    - os: osx
+      language: generic
+      env:
+        MB_PYTHON_VERSION: 3.7
+        TOXENV: py37
+    - os: osx
+      language: generic
+      env:
+        MB_PYTHON_VERSION: 3.8
+        TOXENV: py38
+    - os: osx
+      language: generic
+      env:
+        MB_PYTHON_VERSION: 3.9
+        TOXENV: py39
 before_install: |
   if [ $TRAVIS_OS_NAME == osx ]; then
     git clone https://github.com/matthew-brett/multibuild
@@ -43,7 +75,22 @@ notifications:
   email:
     on_success: change
     on_failure: change
-
+after_success: |
+  if [[ $TRAVIS_TAG ]]; then
+    if [[ $TRAVIS_OS_NAME == osx && $MB_PYTHON_VERSION == $PYTHON_MAIN_VERSION ]]; then
+      pip install wheel twine
+      python setup.py bdist_wheel
+      twine upload --skip-existing -u sbraz dist/*.whl
+    # We only want to upload distributions from environments where
+    # the actual test suite runs, and not just QA stuff like pylint & friends,
+    # so we make sure it's a py-something tox environment
+    elif [[ $TRAVIS_OS_NAME == linux && $TRAVIS_PYTHON_VERSION == $PYTHON_MAIN_VERSION && $TOXENV == py?? ]]; then
+      # sdists generated on OSX have a problem with the accented test file
+      # https://github.com/sbraz/pymediainfo/issues/67
+      python setup.py sdist
+      pip install twine
+      twine upload --skip-existing -u sbraz dist/*.gz
+    fi
   fi
 env:
   global:
