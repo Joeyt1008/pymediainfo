@@ -12,6 +12,9 @@ jobs:
         TOXENV: docs,black,flake8,isort,mypy,pylint
         TOX_PARALLEL: "-p"
    
+    - python: 3.8
+      env:
+        TOXENV: py38
     
 before_install: |
   if [ $TRAVIS_OS_NAME == osx ]; then
