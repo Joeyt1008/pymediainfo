@@ -16,7 +16,7 @@ jobs:
         TOXENV: py38
     
     - python: 3.8
-      dist: bionic
+      dist: xenial
       arch: arm64
       env:
         TOXENV: py38
