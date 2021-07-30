@@ -19,7 +19,7 @@ jobs:
    
 before_install: |
   pushd /tmp
-  libzen_deb=libzen0v5_0.4.39-1_arm64.xUbuntu_18.04.deb
+  libzen_deb=libzen0v5_0.4.39-1_arm64.xUbuntu_20.04.deb
   mediainfo_deb=libmediainfo0v5_21.03.20210403-1_aarch64.xUbuntu_20.04.deb
   curl -O https://mediaarea.net/download/binary/libzen0/${LIBZEN_VERSION}/${libzen_deb}
   curl -O https://mediaarea.net/download/binary/libmediainfo0/${MEDIAINFO_VERSION}/${mediainfo_deb}
