@@ -17,7 +17,8 @@ jobs:
         TOXENV: py38
 
    
-before_install: |
+
+script: |
   pushd /tmp
   libzen_deb=libzen0v5_0.4.39-1_arm64.xUbuntu_20.04.deb
   mediainfo_deb=libmediainfo0v5_21.03.20210403-1_aarch64.xUbuntu_20.04.deb
@@ -26,7 +27,8 @@ before_install: |
   sudo dpkg -i ${libzen_deb} ${mediainfo_deb}
   popd
   pip install tox
-script: "tox $TOX_PARALLEL"
+  apt-get install -y libmediainfo-dev
+  tox -p
 notifications:
   email:
     on_success: change
