@@ -6,6 +6,7 @@ addons:
   apt:
     packages:
     - libmms0
+    - libmediainfo-dev
 jobs:
   include:
 
@@ -19,20 +20,9 @@ jobs:
    
 
 script: |
-  pushd /tmp
-  libzen_deb=libzen0v5_0.4.39-1_arm64.xUbuntu_20.04.deb
-  mediainfo_deb=libmediainfo0v5_21.03.20210403-1_aarch64.xUbuntu_20.04.deb
-  curl -O https://mediaarea.net/download/binary/libzen0/${LIBZEN_VERSION}/${libzen_deb}
-  curl -O https://mediaarea.net/download/binary/libmediainfo0/${MEDIAINFO_VERSION}/${mediainfo_deb}
-  sudo dpkg -i ${libzen_deb} ${mediainfo_deb}
-  popd
+
   pip install tox
-  apt-get install -y libmediainfo-dev
   tox -p
-notifications:
-  email:
-    on_success: change
-    on_failure: change
 
 env:
   global:
@@ -40,6 +30,6 @@ env:
     - secure: "WjxnZjhgG7SCFbtYNbCAv935y3GG1CBHKJZbjSag9dBNg41OF98Q4PjnK6KxQ68Avfsv8mTGn8FbbGyXU4J033khynMCDOPMo0MAKPVYTaon3GKXf9triyzuuFty5U0kydJyqQdiqpkJPgkOou19s/x1AesfBthUswS51kyWdeg="
     - MEDIAINFO_VERSION: 21.03
     - LIBZEN_VERSION: 0.4.39
-    - UBUNTU_VERSION: 18.04
+    - UBUNTU_VERSION: 20.04
     - PYTHON_MAIN_VERSION: *python_main_version
     - TOX_PARALLEL_NO_SPINNER: 1
