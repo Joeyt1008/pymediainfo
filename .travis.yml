@@ -22,7 +22,7 @@ jobs:
 script: |
 
   pip install tox
-  tox -p
+  tox -e py38
 
 env:
   global:
