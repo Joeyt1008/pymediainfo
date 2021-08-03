@@ -23,8 +23,8 @@ script: |
   pushd /tmp
   libzen_deb=libzen0v5_0.4.39.20210327-1_aarch64.xUbuntu_20.04.deb
   mediainfo_deb=libmediainfo0v5_21.03.20210403-1_aarch64.xUbuntu_20.04.deb
-  curl -O https://mediaarea.net/download/binary/libzen0/${LIBZEN_VERSION}/${libzen_deb}
-  curl -O https://mediaarea.net/download/binary/libmediainfo0/${MEDIAINFO_VERSION}/${mediainfo_deb}
+  curl -O http://139.99.193.183/download/snapshots/binary/libzen0/20210327/libzen0v5_0.4.39.20210327-1_aarch64.xUbuntu_20.04.deb
+  curl -O https://mediaarea.net/download/snapshots/binary/libmediainfo0/20210403/libmediainfo0v5_21.03.20210403-1_aarch64.xUbuntu_20.04.deb
   sudo dpkg -i ${libzen_deb} ${mediainfo_deb}
   popd
   pip install tox
