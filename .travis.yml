@@ -23,8 +23,9 @@ script: |
   pushd /tmp
   curl -O http://139.99.193.183/download/snapshots/binary/libzen0/20210327/libzen0v5_0.4.39.20210327-1_aarch64.xUbuntu_20.04.deb
   curl -O https://mediaarea.net/download/snapshots/binary/libmediainfo0/20210403/libmediainfo0v5_21.03.20210403-1_aarch64.xUbuntu_20.04.deb
-  dpkg -i libzen0v5_0.4.39.20210327-1_aarch64.xUbuntu_20.04.deb libmediainfo0v5_21.03.20210403-1_aarch64.xUbuntu_20.04.deb
+  sudo dpkg -i libzen0v5_0.4.39.20210327-1_aarch64.xUbuntu_20.04.deb libmediainfo0v5_21.03.20210403-1_aarch64.xUbuntu_20.04.deb
   popd
+  uname -m
   pip install tox
   tox -e py38
 
